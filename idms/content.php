@@ -36,9 +36,9 @@ if (empty($_GET['page'])){//GETメソッドでページ指定がない場合、�
 }
 
 if(empty($_GET['search'])){
-    $query = "＞";
+    $query = '＞';
 }else{
-    $q1 = explode(" ", str_replace("　", " ", $_GET['search']));//検索ワードを空白で分ける。
+    $q1 = explode(" ", str_replace('　', " ", $_GET['search']));//検索ワードを空白で分ける。
     foreach($q1 as $que){
         if(mb_substr($que, 0, 1) == "-"){//先頭にハイフンがある場合除外ワードとする。
             $config['HideWord'][] = mb_substr($que, 1);//除外ワード群への追加。
@@ -56,7 +56,7 @@ file_put_contents('access', 'reading');
 $datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
 unlink('access');
 $rt2 = microtime(true);//メタデータの読み込みにかかった時間を計測するため、処理終了時間を取得。
-$nod = '0';
+$nod = '0';//ディスプレイ表示件数に関する設定。
 foreach($datas as $data){
     unset($nm);
     if(isset($_COOKIE['type'])){
