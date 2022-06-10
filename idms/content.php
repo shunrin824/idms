@@ -51,13 +51,13 @@ if(empty($_GET['search'])){
 while(file_exists('access')){//データの排他制御のためにロックファイルの存在確認。
     sleep("0.1");//ロックファイルの存在を確認したためクールタイム。
 }
-$rt1 = microtime(true);
+$rt1 = microtime(true);//メタデータの読み込みにかかった時間を計測するため、処理開始時間を取得。
 file_put_contents('access', 'reading');
 $datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
 unlink('access');
+$rt2 = microtime(true);//メタデータの読み込みにかかった時間を計測するため、処理終了時間を取得。
 $data['tag'][] = '';
 $data['tag'][] = '';
-$rt2 = microtime(true);
 $nod = '0';
 foreach($datas as $data){
     unset($nm);
