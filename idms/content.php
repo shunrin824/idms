@@ -1,16 +1,16 @@
 ﻿<?php
 //ini_set('display_errors', "on");
-$s = microtime(true);//処理にかかった時間
+$s = microtime(true);//処理にかかった時間。
 $config = json_decode(mb_convert_encoding(file_get_contents('config.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
 function h($str) {//テキストデータの処理を関数にしたもの。
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
 if(isset($_COOKIE['foretaste'])){//データの表示スタイルに関する設定。
-    $foretaste = $_COOKIE['foretaste'];//リスト表示（画像大きめ）
+    $foretaste = $_COOKIE['foretaste'];//リスト表示（画像大きめ）。
 }
 if(isset($_COOKIE['fullsc'])){
-    $fullsc = $_COOKIE['fullsc'];//アルバム表示
+    $fullsc = $_COOKIE['fullsc'];//アルバム表示。
 }
 
 if($_COOKIE['num'] == "1"){//画像の1ページあたりの最大表示件数に関する設定。
@@ -40,19 +40,16 @@ if(empty($_GET['search'])){
 }else{
     $q1 = explode(" ", str_replace("　", " ", $_GET['search']));//検索ワードを空白で分ける。
     foreach($q1 as $que){
-        if(mb_substr($que, 0, 1) == "-"){//先頭にハイフンがある場合
-            $config['HideWord'][] = mb_substr($que, 1);
-            $hideque[] = mb_substr($que, 1);
-        }else{
-            $q[] = $que;
+        if(mb_substr($que, 0, 1) == "-"){//先頭にハイフンがある場合除外ワードとする。
+            $config['HideWord'][] = mb_substr($que, 1);//除外ワード群への追加。
+            $hideque[] = mb_substr($que, 1);//除外ワードへの追加。
+        }else{//先頭にハイフンがない場合は検索ワードとして使う。
+            $q[] = $que;//検索ワード群への追加。
         }
     }
 }
-while(1 == 1){
-    if(!file_exists('access')){
-        break;
-    }
-    sleep("0.1");
+while(file_exists('access')){//データの排他制御のためにロックファイルの存在確認。
+    sleep("0.1");//ロックファイルの存在を確認したためクールタイム。
 }
 $rt1 = microtime(true);
 file_put_contents('access', 'reading');
