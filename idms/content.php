@@ -56,8 +56,6 @@ file_put_contents('access', 'reading');
 $datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
 unlink('access');
 $rt2 = microtime(true);//メタデータの読み込みにかかった時間を計測するため、処理終了時間を取得。
-$data['tag'][] = '';
-$data['tag'][] = '';
 $nod = '0';
 foreach($datas as $data){
     unset($nm);
@@ -69,15 +67,17 @@ foreach($datas as $data){
     if(isset($q)){
         if(is_array($q)){
             foreach($q as $qs){
-                if(is_array($data['tag'])){
-                    if(stristr(implode('', $data['tag']), $qs) || stristr($data['memo'], $qs)){
+                if(isset($data['tag'])){
+                    if(is_array($data['tag'])){
+                        if(stristr(implode('', $data['tag']), $qs) || stristr($data['memo'], $qs)){
+                        }else{
+                            $nm ="1";
+                        }
                     }else{
-                        $nm ="1";
-                    }
-                }else{
-                    if(stristr($data['tag'], $qs) || stristr($data['memo'], $qs)){
-                    }else{
-                        $nm ="1";
+                        if(stristr($data['tag'], $qs) || stristr($data['memo'], $qs)){
+                        }else{
+                            $nm ="1";
+                        }
                     }
                 }
             }
