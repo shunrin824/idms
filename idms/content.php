@@ -27,10 +27,10 @@ if($_COOKIE['num'] == "1"){//画像の1ページあたりの最大表示件数�
 
 
 $name = h($_GET['search']);
-if (empty($_GET['page'])){
+if (empty($_GET['page'])){//GETメソッドでページ指定がない場合、自動的に1ページ目として指定する。
     $n = 0;
     $page = 1;
-}else{
+}else{//GETメソッドでページ指定がある場合、その値を使う。
     $page = $_GET['page'];
     $n = ($page - 1);
 }
@@ -38,9 +38,9 @@ if (empty($_GET['page'])){
 if(empty($_GET['search'])){
     $query = "＞";
 }else{
-    $q1 = explode(" ", str_replace("　", " ", $_GET['search']));
+    $q1 = explode(" ", str_replace("　", " ", $_GET['search']));//検索ワードを空白で分ける。
     foreach($q1 as $que){
-        if(mb_substr($que, 0, 1) == "-"){
+        if(mb_substr($que, 0, 1) == "-"){//先頭にハイフンがある場合
             $config['HideWord'][] = mb_substr($que, 1);
             $hideque[] = mb_substr($que, 1);
         }else{
