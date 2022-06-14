@@ -57,16 +57,16 @@ $datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8',
 unlink('access');
 $rt2 = microtime(true);//メタデータの読み込みにかかった時間を計測するため、処理終了時間を取得。
 $nod = '0';//ディスプレイ表示件数に関する設定。
-foreach($datas as $data){
-    unset($nm);
-    if(isset($_COOKIE['type'])){
-        if($_COOKIE['type'] !== $data['type']){
-            $nm="1";
+foreach($datas as $data){//読み込んだデータの全件検索
+    unset($nm);//除外用変数の初期化
+    if(isset($_COOKIE['type'])){//データタイプの読み込み
+        if($_COOKIE['type'] !== $data['type']){//データタイプが一致するか確認
+            $nm="1";//除外用変数を追加
         }
     }
-    if(isset($q)){
-        if(is_array($q)){
-            foreach($q as $qs){
+    if(isset($q)){//検索ワードが存在するか確認
+        if(is_array($q)){//検索ワードが複数存在するか確認。
+            foreach($q as $qs){//検索ワードごとに
                 if(isset($data['tag'])){
                     if(is_array($data['tag'])){
                         if(stristr(implode('', $data['tag']), $qs) || stristr($data['memo'], $qs)){
