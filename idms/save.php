@@ -111,7 +111,12 @@ elseif($ext == 'zip' || $ext == 'ZIP'){
     }
     */
             
+}elseif($ext == 'tar'){
+    $upload = 'file/'.$id.'.tar';
+    move_uploaded_file($file['tmp_name'], $upload);
+    $type = "fil";
 }
+
 // ファイルアップロードが無かった場合の処理
 elseif (isset($_POST['type'])){
     $type = $_POST['type'];
