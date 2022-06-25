@@ -13,5 +13,6 @@
 	"BeforeEncodeMovieFolder": "rawmovie",
 	"SoundFolder": "sound",
 	"SmallSoundFolder": "ssound",
-	"BeforeEncodeSoundFolder": "rawsound"
+	"BeforeEncodeSoundFolder": "rawsound",
+	"PngFolder": "png"
 }

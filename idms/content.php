@@ -2,6 +2,7 @@
 //ini_set('display_errors', "on");
 $s = microtime(true);//処理にかかった時間。
 $config = json_decode(mb_convert_encoding(file_get_contents('config.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
+$folder_png = "/var/www/html/idms/png";
 function h($str) {//テキストデータの処理を関数にしたもの。
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
@@ -25,6 +26,8 @@ if($_COOKIE['num'] == "1"){//画像の1ページあたりの最大表示件数�
     $cntnum = $config['NumberOfDisplays0'];//デフォルトで50。
 }
 
+$disk_free['PngFolder'] = disk_free_space($config['PngFolder']);
+echo($disk_free['PngFolder']);
 
 $name = h($_GET['search']);
 if (empty($_GET['page'])){//GETメソッドでページ指定がない場合、自動的に1ページ目として指定する。
