@@ -163,6 +163,7 @@ unlink('access');
  <body>
   <h1><font color="red">送信が完了しました。</font></h1>
   <p>
+  <?=($id)?>
   <?=($memo)?>
   </p>
  </body>
