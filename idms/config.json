@@ -14,5 +14,6 @@
 	"SoundFolder": "sound",
 	"SmallSoundFolder": "ssound",
 	"BeforeEncodeSoundFolder": "rawsound",
-	"PngFolder": "png"
+	"PngFolder": "png",
+	"WebpFolder": "webp"
 }
