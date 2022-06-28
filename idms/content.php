@@ -27,13 +27,13 @@ if ($_COOKIE['num'] == "1") { //画像の1ページあたりの最大表示件�
     $cntnum = $config['NumberOfDisplays0']; //デフォルトで50。
 }
 
-$disk_free['PngFolder'] = round(disk_free_space($config['PngFolder']) / "1073741824", 2);
-$disk_tortal['PngFolder'] = round(disk_total_space($config['PngFolder']) / "1073741824", 2);
-$disk_use['PngFolder'] = round(($disk_tortal['PngFolder'] - $disk_free['PngFolder']) / $disk_tortal['PngFolder'] * "100", 2);
+$disk_free['PngFolder'] = round(disk_free_space($config['PngFolder']) / "1073741824", 2); //PNGを格納しているストレージの残容量を取得
+$disk_tortal['PngFolder'] = round(disk_total_space($config['PngFolder']) / "1073741824", 2); //PNGを格納しているストレージの総容量を取得
+$disk_use['PngFolder'] = round(($disk_tortal['PngFolder'] - $disk_free['PngFolder']) / $disk_tortal['PngFolder'] * "100", 2); //PNGを格納しているストレージの利用率を取得。
 
-$disk_free['WebpFolder'] = round(disk_free_space($config['WebpFolder']) / "1073741824", 2);
-$disk_tortal['WebpFolder'] = round(disk_total_space($config['WebpFolder']) / "1073741824", 2);
-$disk_use['WebpFolder'] = round(($disk_tortal['WebpFolder'] - $disk_free['WebpFolder']) / $disk_tortal['WebpFolder'] * "100", 2);
+$disk_free['WebpFolder'] = round(disk_free_space($config['WebpFolder']) / "1073741824", 2); //WEBPを格納しているストレージの残容量を取得
+$disk_tortal['WebpFolder'] = round(disk_total_space($config['WebpFolder']) / "1073741824", 2); //WEBPを格納しているストレージの総容量を取得
+$disk_use['WebpFolder'] = round(($disk_tortal['WebpFolder'] - $disk_free['WebpFolder']) / $disk_tortal['WebpFolder'] * "100", 2); //WEBPを格納しているストレージの使用率を取得。
 
 $name = h($_GET['search']);
 if (empty($_GET['page'])) { //GETメソッドでページ指定がない場合、自動的に1ページ目として指定する。
@@ -61,9 +61,9 @@ while (file_exists('access')) { //データの排他制御のためにロック�
     sleep("0.1"); //ロックファイルの存在を確認したためクールタイム。
 }
 $rt1 = microtime(true); //メタデータの読み込みにかかった時間を計測するため、処理開始時間を取得。
-file_put_contents('access', 'reading');
-$datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
-unlink('access');
+file_put_contents('access', 'reading');//ロックファイルを作成。
+$datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');//JSONファイルを読み込み。
+unlink('access');//ロックファイルを削除
 $rt2 = microtime(true); //メタデータの読み込みにかかった時間を計測するため、処理終了時間を取得。
 $nod = '0'; //ディスプレイ表示件数に関する設定。
 foreach ($datas as $data) { //読み込んだデータの全件検索
@@ -75,16 +75,14 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
     }
     if (isset($q)) { //検索ワードが存在するか確認
         if (is_array($q)) { //検索ワードが複数存在するか確認。
-            foreach ($q as $qs) { //検索ワードごとに
-                if (isset($data['tag'])) {
-                    if (is_array($data['tag'])) {
-                        if (stristr(implode('', $data['tag']), $qs) || stristr($data['memo'], $qs)) {
-                        } else {
+            foreach ($q as $qs) { //検索ワードごとに検索
+                if (isset($data['tag'])) {//タグデータが存在するかを確認。
+                    if (is_array($data['tag'])) {//タグデータが複数存在するか確認。
+                        if (!stristr(implode('', $data['tag']), $qs) || !stristr($data['memo'], $qs)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
                             $nm = "1";
                         }
                     } else {
-                        if (stristr($data['tag'], $qs) || stristr($data['memo'], $qs)) {
-                        } else {
+                        if (!stristr($data['tag'], $qs) || !stristr($data['memo'], $qs)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
                             $nm = "1";
                         }
                     }
@@ -92,11 +90,11 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
             }
         }
     }
-    if ($_COOKIE['r'] !== "1") {
-        foreach ($config['HideWord'] as $hideword) {
-            if (isset($data['tag'])) {
-                if (is_array($data['tag'])) {
-                    if (stristr(implode('', $data['tag']), $hideword) || stristr($data['memo'], $hideword)) {
+    if ($_COOKIE['r'] !== "1") {//非表示ファイルを表示するかどうか
+        foreach ($config['HideWord'] as $hideword) {//非表示キーワード群の全件検索
+            if (isset($data['tag'])) {//タグデータが存在することを確認
+                if (is_array($data['tag'])) {//タグデータが複数存在することを確認。
+                    if (stristr(implode('', $data['tag']), $hideword) || stristr($data['memo'], $hideword)) {//
                         $nm = "1";
                     }
                 }
