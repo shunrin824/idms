@@ -94,18 +94,18 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
         foreach ($config['HideWord'] as $hideword) {//非表示キーワード群の全件検索
             if (isset($data['tag'])) {//タグデータが存在することを確認
                 if (is_array($data['tag'])) {//タグデータが複数存在することを確認。
-                    if (stristr(implode('', $data['tag']), $hideword) || stristr($data['memo'], $hideword)) {//
+                    if (stristr(implode('', $data['tag']), $hideword) || stristr($data['memo'], $hideword)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
                         $nm = "1";
                     }
                 }
             }
         }
     }
-    if (!isset($nm)) {
+    if (!isset($nm)) {//条件に合致した場合、カウント
         $nod++;
     }
-    if ($nod < $cntnum * $page) {
-        if ($nod >= $cntnum * $n) {
+    if ($nod < $cntnum * $page) {//ページ数から表示件数を計算し、溢れないなら
+        if ($nod >= $cntnum * $n) {//ページ数から表示件数を計算し、前のページ以前のデータを除外。
             if (empty($nm)) {
                 if (isset($row['memo'])) {
                     $row['memo'] = mb_substr($row['memo'], 0, 150);
