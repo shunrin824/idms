@@ -107,13 +107,13 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
     if ($nod < $cntnum * $page) {//ページ数から表示件数を計算し、溢れないなら
         if ($nod >= $cntnum * $n) {//ページ数から表示件数を計算し、前のページ以前のデータを除外。
             if (empty($nm)) {
-                if (isset($row['memo'])) {
+                if (isset($row['memo'])) {//memo変数にデータが存在する場合、150文字までにトリミングする。
                     $row['memo'] = mb_substr($row['memo'], 0, 150);
                 }
-                $row['0'] = $data['id'];
+                $row['0'] = $data['id'];//以下3行は、データを表示するための変数のコピー
                 $row['1'] = $data['date'];
                 $row['2'] = $data['type'];
-                if (isset($data['tag'])) {
+                if (isset($data['tag'])) {//
                     if (is_array($data['tag'])) {
                         $row['3'] = '{' . implode('}{', $data['tag']) . '}';
                     }
