@@ -106,7 +106,9 @@ foreach($row[3] as $tags){
 echo('&lt;<a href="csv.php?tag='.$tags.'&id='.$row[0].'&mode=tagrm">[X]</a><a href="content.php?search='.$tags.'">'.$tags.'</a>&gt;&nbsp;<br>');
 }
          ?><br>
-        <a href="png/<?=($row[0])?>.png" download="<?=($row[0])?>.png">ダウンロードする</a><br>
+        <a href="png/<?=($row[0])?>.png" download="<?=($row[0])?>.png">画像をダウンロードする</a><br>
+        <a href="rawmovie/<?=($row[0])?>.mp4" download="<?=($row[0])?>.mp4">動画をダウンロードする</a><br>
+        <a href="file/<?=($row[0])?>.zip" download="<?=($row[0])?>.zip">アーカイブをダウンロードする</a><br>
         [文字数<p id="inputlength" style="display:inline-flex">-文字</p>]
          <textarea name="memo" rows="20" style="width: 100%;" onkeyup="ShowLength(value);"><?=($row[5])?></textarea><br>
          <button type="submit" name="id" value="<?=($row[0])?>">登録</button>
