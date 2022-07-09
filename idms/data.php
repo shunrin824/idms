@@ -84,7 +84,7 @@ function ShowLength( str ) {
                 }elseif($row['2'] == "snd"){
                     echo('<audio controls src="ssound/'.$row['0'].'.ogg"></audio>');
                 }elseif($row['2'] == "mov"){
-                    echo('<video controls src="smovie/'.$row['0'].'.webm" class="viewmedia"></video>');
+                    echo('<video controls src="rawmovie/'.$row['0'].'.mp4" class="viewmedia"></video>');
                 }
             }else{
                 if($row['2'] == "img" || $row['2'] == "vrc"){
@@ -92,7 +92,7 @@ function ShowLength( str ) {
                 }elseif($row['2'] == "snd"){
                     echo('<audio controls src="sound/'.$row['0'].'.m4a"></audio>');
                 }elseif($row['2'] == "mov"){
-                    echo('<video controls src="movie/'.$row['0'].'.webm" class="viewmedia"></video>');
+                    echo('<video controls src="rawmovie/'.$row['0'].'.mp4" class="viewmedia"></video>');
                 }
             }
         ?>
