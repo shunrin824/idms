@@ -78,11 +78,11 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
             foreach ($q as $qs) { //検索ワードごとに検索
                 if (isset($data['tag'])) {//タグデータが存在するかを確認。
                     if (is_array($data['tag'])) {//タグデータが複数存在するか確認。
-                        if (!stristr(implode('', $data['tag']), $qs) || !stristr($data['memo'], $qs)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
+                        if (!stristr(implode('', $data['tag']), $qs) && !stristr($data['memo'], $qs)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
                             $nm = "1";
                         }
                     } else {
-                        if (!stristr($data['tag'], $qs) || !stristr($data['memo'], $qs)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
+                        if (!stristr($data['tag'], $qs) && !stristr($data['memo'], $qs)) {//検索ワードがタグデータとテキスト本文データに存在しない場合に除外用変数を追加。
                             $nm = "1";
                         }
                     }
