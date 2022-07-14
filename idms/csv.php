@@ -39,9 +39,15 @@ foreach ($datas as $data) {
             unset($memo);
         } else {
             if ($data['id'] == $id) {
-                $tags = explode('、', $_POST['tag']);
-                foreach ($tags as $tag) {
-                    $data['tag'][] = $tag;
+                if (isset($_POST['tag'])) {
+                    $tags = explode('、', $_POST['tag']);
+                    foreach ($tags as $tag) {
+                        if (is_array($data['tag'])) {
+                            $data['tag'][] = $tag;
+                        } else {
+                            $data['tag'] = $tag;
+                        }
+                    }
                 }
                 $data['memo'] = str_replace("\r\n", '', nl2br(h($_POST['memo']), false));
                 $edata[] = $data;
@@ -54,9 +60,15 @@ foreach ($datas as $data) {
         }
     } else {
         if ($data['id'] == $id) {
-            $tags = explode('、', $_POST['tag']);
-            foreach ($tags as $tag) {
-                $data['tag'][] = $tag;
+            if (isset($_POST['tag'])) {
+                $tags = explode('、', $_POST['tag']);
+                foreach ($tags as $tag) {
+                    if (is_array($data['tag'])) {
+                        $data['tag'][] = $tag;
+                    } else {
+                        $data['tag'] = $tag;
+                    }
+                }
             }
             $data['memo'] = str_replace("\r\n", '', nl2br(h($_POST['memo']), false));
             $edata[] = $data;
@@ -77,6 +89,6 @@ echo ("write" . ($s2 - $s1) . "<br>");
 echo ("all" . ($s2 - $s) . "<br>");
 ?>
 <html>
-<meta http-equiv="refresh" content="1 ; URL=<?= ($_SERVER["HTTP_REFERER"]) ?>">
+<meta http-equiv="refresh" content="0 ; URL=<?= ($_SERVER["HTTP_REFERER"]) ?>">
 
 </html>
