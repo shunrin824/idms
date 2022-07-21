@@ -104,8 +104,8 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
     if (!isset($nm)) {//条件に合致した場合、カウント
         $nod++;
     }
-    if ($nod < $cntnum * $page) {//ページ数から表示件数を計算し、溢れないなら
-        if ($nod >= $cntnum * $n) {//ページ数から表示件数を計算し、前のページ以前のデータを除外。
+    if ($nod < $cntnum * $page) {//表示データを件数でふるいにかける。ページ
+        if ($nod >= $cntnum * $n) {
             if (empty($nm)) {
                 if (isset($row['memo'])) {//memo変数にデータが存在する場合、150文字までにトリミングする。
                     $row['memo'] = mb_substr($row['memo'], 0, 150);
@@ -113,18 +113,18 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
                 $row['0'] = $data['id'];//以下3行は、データを表示するための変数のコピー
                 $row['1'] = $data['date'];
                 $row['2'] = $data['type'];
-                if (isset($data['tag'])) {//
+                if (isset($data['tag'])) {//タグが存在するか、また連想配列で存在するかを確かめ、連想配列なら配列を結合させる。
                     if (is_array($data['tag'])) {
                         $row['3'] = '{' . implode('}{', $data['tag']) . '}';
                     }
                 }
-                if (isset($data['originalname'])) {
+                if (isset($data['originalname'])) {//ファイルの名前が存在する場合、表示用変数に代入。
                     $row['4'] = $data['originalname'];
                 }
-                if (isset($data['memo'])) {
+                if (isset($data['memo'])) {//本文データが存在する場合、見出しとして一部を表示。
                     $row['5'] = mb_substr($data['memo'], 0, 100);
                 }
-                $rows[] = $row;
+                $rows[] = $row;//表示用変数に代入したデータを
             }
         }
     } else {

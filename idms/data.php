@@ -86,7 +86,8 @@ foreach ($datas as $data) {
                         [<?= ($row[4]) ?>]<br>
                         [日時<?php echo (substr($row[1], '0', '4') . "年" . substr($row[1], '4', '2') . "月" . substr($row[1], '6', '2') . "日" . substr($row[1], '8', '2') . "時" . substr($row[1], '10', '2') . "分" . substr($row[1], '12', '2') . "秒"); ?>]<br>
                         <?php
-                        if ($_COOKIE['size'] == "1") {
+                        if (isset($_COOKIE['size'])) {
+                            if(($_COOKIE['size'] == "1")){
                             if ($row['2'] == "img" || $row['2'] == "vrc") {
                                 echo ('<img src="webp/' . $row['0'] . '.webp" class="viewmedia">');
                             } elseif ($row['2'] == "snd") {
@@ -94,6 +95,7 @@ foreach ($datas as $data) {
                             } elseif ($row['2'] == "mov") {
                                 echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
                             }
+                        }
                         } else {
                             if ($row['2'] == "img" || $row['2'] == "vrc") {
                                 echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
