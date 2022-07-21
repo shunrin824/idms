@@ -124,7 +124,7 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
                 if (isset($data['memo'])) {//本文データが存在する場合、見出しとして一部を表示。
                     $row['5'] = mb_substr($data['memo'], 0, 100);
                 }
-                $rows[] = $row;//表示用変数に代入したデータを
+                $rows[] = $row;//表示用変数に代入したデータを連想配列に保存。
             }
         }
     } else {
@@ -132,11 +132,8 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
     }
 }
 end:
-if (empty($cnt)) {
-    $cnt = "0";
-}
 $count = "0";
-if (isset($q)) {
+if (isset($q)) {//表示タグ名の表示処理
     if (is_array($q)) {
         $name = '[' . implode(']、[', $q) . ']';
     } else {
@@ -145,7 +142,7 @@ if (isset($q)) {
 } else {
     $name = "全て";
 }
-if (isset($hideque)) {
+if (isset($hideque)) {//非表示タグ名の表示処理
     if (is_array($hideque)) {
         $name1 = "[-" . implode(']、[-', $hideque) . "]";
     } else {
