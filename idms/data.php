@@ -88,14 +88,22 @@ foreach ($datas as $data) {
                         <?php
                         if (isset($_COOKIE['size'])) {
                             if(($_COOKIE['size'] == "1")){
-                            if ($row['2'] == "img" || $row['2'] == "vrc") {
-                                echo ('<img src="webp/' . $row['0'] . '.webp" class="viewmedia">');
-                            } elseif ($row['2'] == "snd") {
-                                echo ('<audio controls src="ssound/' . $row['0'] . '.ogg"></audio>');
-                            } elseif ($row['2'] == "mov") {
-                                echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                if ($row['2'] == "img" || $row['2'] == "vrc") {
+                                    echo ('<img src="webp/' . $row['0'] . '.webp" class="viewmedia">');
+                                } elseif ($row['2'] == "snd") {
+                                    echo ('<audio controls src="ssound/' . $row['0'] . '.ogg"></audio>');
+                                } elseif ($row['2'] == "mov") {
+                                    echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                }
+                            }else{
+                                if ($row['2'] == "img" || $row['2'] == "vrc") {
+                                    echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
+                                } elseif ($row['2'] == "snd") {
+                                    echo ('<audio controls src="sound/' . $row['0'] . '.m4a"></audio>');
+                                } elseif ($row['2'] == "mov") {
+                                    echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                }
                             }
-                        }
                         } else {
                             if ($row['2'] == "img" || $row['2'] == "vrc") {
                                 echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
