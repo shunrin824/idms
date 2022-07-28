@@ -26,6 +26,7 @@ foreach ($datas as $data) {
         $html = $row['5'];
         $html = ltrim($html, '＜');
         $html = rtrim($html, '＞');
+        $html = preg_replace('/img([0-9]{14})/i', '<img src=webp/$1.webp style="width:640px;hieght:auto;max-width:50%;">', htmlspecialchars_decode($data['memo']));
         $row['5'] = str_replace('＜', '', $row['5']);
         $row['5'] = str_replace('＞', '', $row['5']);
         $row['0'] = str_replace('id', '', $row['0']);
