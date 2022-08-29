@@ -180,7 +180,7 @@ $s2 = microtime(true);
         <!--ここからヘッダー-->
         <header>
             <h1>
-                <a href="/index.html">旬燐のwebサイト</a>
+                <a href="index.html">データ管理システム</a>
             </h1>
         </header>
         <!--ここから本文-->
@@ -286,7 +286,7 @@ $s2 = microtime(true);
         </div>
         <!--フッター-->
         <footer>
-            当サーバーを利用して起こった損失などの責任は負いかねます。
+            データ管理システム
         </footer>
     </div>
 </body>

@@ -1,5 +1,5 @@
 ﻿<?php
-ini_set('display_errors', "on");
+//ini_set('display_errors', "on");
 $id = $_GET['id'];
 while ('1' == '1') {
     if (!file_exists('access')) {
@@ -76,7 +76,7 @@ foreach ($datas as $data) {
         <!--ここからヘッダー-->
         <header>
             <h1>
-                <a href="/index.html">旬燐のwebサイト</a>
+                <a href="index.html">データ管理システム</a>
             </h1>
         </header>
         <div class="container">
@@ -142,10 +142,6 @@ foreach ($datas as $data) {
                             <button type="submit" name="id" value="<?= ($row[0]) ?>">プレビュー</button>
                         </form>
                     <?php endforeach; ?>
-                    <p>
-                        データベースには<?= htmlspecialchars($name0) ?>のデータが見つかりませんでした。<br>
-                        データが登録されていないか、サーバーにエラーが起きています。<br>
-                    </p>
                 </section>
             </div>
             <div class="side">
@@ -154,7 +150,7 @@ foreach ($datas as $data) {
         </div>
         <!--フッター-->
         <footer>
-            当サーバーを利用して起こった損失などの責任は負いかねます。
+            データ管理システム
         </footer>
     </div>
 </body>
