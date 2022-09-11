@@ -83,10 +83,13 @@ if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 ==
     }
 
     list($width, $hight, $type) = getimagesize($filePath); // 元の画像名を指定してサイズを取得
+    echo($type);
     if ($type == "2") {
         $baseImage = imagecreatefromjpeg($filePath);
     } elseif ($type == "3") {
         $baseImage = imagecreatefrompng($filePath);
+    } elseif (mime_content_type($file) == 'image/webp'){
+        $baseImage = imagecreatefromwebp($filepath);
     }
     $sdwidth = round(360 * $width / $hight);
     $image = imagecreatetruecolor($sdwidth, 360); // サイズを指定して新しい画像のキャンバスを作成
@@ -146,7 +149,6 @@ unlink('idms/access');
         <font color="red">送信が完了しました。</font>
     </h1>
     <p>
-        <?= ($memo) ?>
     </p>
 </body>
 
