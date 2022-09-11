@@ -107,7 +107,7 @@ if (isset($_FILES['file_upload'])) {
     $type = "fil";
     passthru("zipinfo -1 " . $upload, $info);
 } elseif (isset($_POST['type'])) {
-    $type = $_POST[type];
+    $type = $_POST['type'];
 } elseif (isset($_POST['type']) !== true || isset($_FILES['file_upload']) !== true) {
     $type = "txt";
 }

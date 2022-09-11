@@ -44,8 +44,8 @@ if (empty($_GET['page'])) { //GETメソッドでページ指定がない場合�
     $n = ($page - 1);
 }
 
-if ($_COOKIE['r'] !== "1") {//非表示ファイルを表示するかどうか
-    unset($config['hideword']);
+if ($_COOKIE['r'] == "1") {//非表示ファイルを表示するかどうか
+    unset($config['HideWord']);
 }
 if (empty($_GET['search'])) {
     $query = '＞';
@@ -256,9 +256,9 @@ $s2 = microtime(true);
                                                 } elseif (!empty($fullsc)) {
                                                     echo ('<img src="png/' . $file_name . '.png" style="max-height: 338px;max-width: 600px">');
                                                 }
-                                            } else if ($row['2'] == "txt" || empty($fullsc)) {
+                                            } else if ($row['2'] == "txt" && empty($fullsc)) {
                                                 echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
-                                            } else if ($row['2'] == "url" || empty($fullsc)) {
+                                            } else if ($row['2'] == "url" && empty($fullsc)) {
                                                 echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
                                             } else if (empty($fullsc)) {
                                                 echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">画像がありません</textarea>');
