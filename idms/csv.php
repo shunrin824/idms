@@ -41,12 +41,12 @@ foreach ($datas as $data) {
             if ($data['id'] == $id) {
                 if (isset($_POST['tag'])) {
                     $tags = explode('、', $_POST['tag']);
+                    if(!is_array($data['tag'])){
+                        $tags[] = $data['tag'];
+                        unset($data['tag']);
+                    }
                     foreach ($tags as $tag) {
-                        if (is_array($data['tag'])) {
-                            $data['tag'][] = $tag;
-                        } else {
-                            $data['tag'] = $tag;
-                        }
+                        $data['tag'][] = $tag;
                     }
                 }
                 $data['memo'] = str_replace("\r\n", '', nl2br(h($_POST['memo']), false));

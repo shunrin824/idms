@@ -64,7 +64,7 @@ unset($datas);
 unset($data);
 unset($edata);
 
-if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 == 'jpeg' || $ext4 == 'JPEG' || $ext == 'BMP' || $ext == 'bmp' || $ext == 'png' || $ext == 'PNG' || $ext == 'webp' || $ext == 'WEBP') {
+if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 == 'jpeg' || $ext4 == 'JPEG' || $ext == 'BMP' || $ext == 'bmp' || $ext == 'png' || $ext == 'PNG' || $ext4 == 'webp' || $ext4 == 'WEBP') {
 
     $type = "vrc";
 
@@ -77,9 +77,14 @@ if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 ==
         $filePath = "idms/" . $date . ".png";
         move_uploaded_file($file['tmp_name'], $filePath);
     }
-    if ($ext == 'webp' || $ext == 'WEBP') {
+    if ($ext4 == 'webp' || $ext4 == 'WEBP') {
         $filePath = "idms/" . $date . ".webp";
         move_uploaded_file($file['tmp_name'], $filePath);
+        list($width, $hight, $type) = getimagesize($filePath); // 元の画像名を指定してサイズを取得
+        $baseImage = imagecreatefromwebp($filePath);
+        $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
+        imagecopyresampled($image,$baseImage,0,0,0,0,$width,$hight,$width,$hight); // 画像のコピーと伸縮
+        imagepng($image,"idms/png/".$id.".png"); // コピーした画像を出力する
     }
 
     list($width, $hight, $type) = getimagesize($filePath); // 元の画像名を指定してサイズを取得
@@ -88,8 +93,6 @@ if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 ==
         $baseImage = imagecreatefromjpeg($filePath);
     } elseif ($type == "3") {
         $baseImage = imagecreatefrompng($filePath);
-    } elseif (mime_content_type($file) == 'image/webp'){
-        $baseImage = imagecreatefromwebp($filepath);
     }
     $sdwidth = round(360 * $width / $hight);
     $image = imagecreatetruecolor($sdwidth, 360); // サイズを指定して新しい画像のキャンバスを作成
@@ -98,7 +101,7 @@ if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 ==
     // コピーした画像を出力する
     imagewebp($image, "idms/webp/" . $id . ".webp", 75);
 
-    rename($filePath, "idms/png/" . $id . ".png");
+        rename($filePath, "idms/png/" . $id . ".png");
 }
 if (isset($_FILES['file_upload'])) {
     $fp = fopen('idms/data.csv', 'r');
