@@ -18,7 +18,7 @@ function png_convert($path, $ext, $id, $type)
         list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $id . '.png'); // 元の画像名を指定してサイズを取得
         $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
         imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight); // 画像のコピーと伸縮
-        imagepng($image, '/var/www/html/idms/epng/' . $id . '.png', 9); // コピーした画像を出力する
+        imageavif($image, '/var/www/html/idms/avif/' . $id . '.avif', 100, 0); // コピーした画像を出力する
         unset($baseImage);
         unset($image);
     }
