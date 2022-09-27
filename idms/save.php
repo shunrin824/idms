@@ -1,5 +1,5 @@
 ﻿<?php
-ini_set('display_errors', "on");
+//ini_set('display_errors', "on");
 while('1' == '1'){
     if(!file_exists('access')){
         break;
