@@ -2,6 +2,10 @@ body {
     word-wrap: break-word;
 }
 
+.box {
+    border: 2px solid #400000;
+}
+
 .cnt {
     width: 200px;
     height: 200px;
@@ -53,10 +57,12 @@ header a {
     border-right: solid 3px #f6e2e8;
     padding: 20px;
 }
-.main a{
-    color:#400000;
+
+.main a {
+    color: #400000;
 }
-.main a:visited{
+
+.main a:visited {
     color: #400000;
 }
 

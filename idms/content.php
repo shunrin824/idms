@@ -44,7 +44,7 @@ if (empty($_GET['page'])) { //GETメソッドでページ指定がない場合�
     $n = ($page - 1);
 }
 
-if ($_COOKIE['r'] == "1") {//非表示ファイルを表示するかどうか
+if ($_COOKIE['r'] == "1") { //非表示ファイルを表示するかどうか
     unset($config['HideWord']);
 }
 if (empty($_GET['search'])) {
@@ -156,19 +156,6 @@ $s2 = microtime(true);
 <html>
 
 <head>
-    <style>
-        .box {
-            padding: 0.5em 1em;
-            margin: 2em 0;
-            border: dashed 2px #5b8bd0;
-            /*点線*/
-        }
-
-        .box p {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <title>データベース参照　<?php echo $name0; ?>の検索結果</title>
@@ -187,102 +174,129 @@ $s2 = microtime(true);
         <!--ここから本文-->
         <div class="container">
             <div class="main">
-                <a href="index.html">データベース（登録用ページ）</a>
-                <form action="content.php" method="get">
-                    検索<input type="text" name="search"><input type="hidden" name="page" value="1"><button type="submit">検索</button>
-                </form>
-                PNG <?= ($disk_use['PngFolder']) ?>% FreeSpace<?= ($disk_free['PngFolder']) ?>GB<br>
-                WEBP <?= ($disk_use['WebpFolder']) ?>% FreeSpace<?= ($disk_free['WebpFolder']) ?>GB<br>
-                load<?= (substr(($rt2 - $rt1), 0, 5)) ?>s / process<?= (substr(($s2 - $s), 0, 5)) ?>s<br>
-                <?= ($nod) ?>件目<?= h($name) ?><?php if (!empty($hideque)) : ?><?= h($name1) ?><?php endif; ?><br>
-                <a href="cookie.php?foretaste=1&search=<?= h($_GET['search']) ?>&page=<?= h($_GET['page']) ?>">流し見</a>
-                <a href="cookie.php?fullsc=1&search=<?= h($_GET['search']) ?>&page=<?= h($_GET['page']) ?>">アルバム表示</a>
-                <a href="cookie.php?search=<?= h($_GET['search']) ?>&page=<?= h($_GET['page']) ?>">通常表示</a>
-                <section>
-                    <?php if (!empty($rows)) : ?>
-                        <?php if (!empty($foretaste)) : ?>
-                            <div class="wrap">
-                                <table>
-                                    <?php foreach ($rows as $row) : ?>
-                                        <tr>
-                                            <?php ++$count; ?>
-                                            <th>
-                                                <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>&local=<?= ($_GET['local']) ?>" target="_blank">
-                                                    <?php
-                                                    $file_name = sprintf('%014d', $row['0']);
-                                                    if (file_exists('webp/' . $file_name . '.webp')) {
-                                                        if ($_COOKIE['size'] == "1") {
-                                                            echo ('<img src="webp/' . $file_name . '.webp" style="padding: 0px;margin: 0px;max-height: 480px;">');
+                <div class="box">
+                    <a href="index.html">データベース（登録用ページ）</a>
+                    <form action="content.php" method="get">
+                        検索<input type="text" name="search" value="<?= ($_GET['search']) ?>"><input type="hidden" name="page" value="1"><button type="submit">検索</button>
+                    </form>
+                    PNG <?= ($disk_use['PngFolder']) ?>% FreeSpace<?= ($disk_free['PngFolder']) ?>GB<br>
+                    WEBP <?= ($disk_use['WebpFolder']) ?>% FreeSpace<?= ($disk_free['WebpFolder']) ?>GB<br>
+                    load<?= (substr(($rt2 - $rt1), 0, 5)) ?>s / process<?= (substr(($s2 - $s), 0, 5)) ?>s<br>
+                    <?= ($nod) ?>件目<?= h($name) ?><?php if (!empty($hideque)) : ?><?= h($name1) ?><?php endif; ?><br>
+                    <a href="cookie.php?foretaste=1&search=<?= h($_GET['search']) ?>&page=<?= h($_GET['page']) ?>">流し見</a>
+                    <a href="cookie.php?fullsc=1&search=<?= h($_GET['search']) ?>&page=<?= h($_GET['page']) ?>">アルバム表示</a>
+                    <a href="cookie.php?search=<?= h($_GET['search']) ?>&page=<?= h($_GET['page']) ?>">通常表示</a><br>
+                    <a href="content.php?page=<?= ($page - 1) ?>&search=<?= ($_GET['search']) ?>">前ページ</a><?= ($page) ?><a href="content.php?page=<?= ($page + 1) ?>&search=<?= ($_GET['search']) ?>">次のページ</a>
+                    <section>
+                        <?php if (!empty($rows)) : ?>
+                            <?php if (!empty($foretaste)) : ?>
+                                <div class="wrap">
+                                    <table>
+                                        <?php foreach ($rows as $row) : ?>
+                                            <tr>
+                                                <?php ++$count; ?>
+                                                <th>
+                                                    <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>&local=<?= ($_GET['local']) ?>" target="_blank">
+                                                        <?php
+                                                        $file_name = sprintf('%014d', $row['0']);
+                                                        if (file_exists('webp/' . $file_name . '.webp')) {
+                                                            if ($_COOKIE['size'] == "1") {
+                                                                echo ('<img src="webp/' . $file_name . '.webp" style="padding: 0px;margin: 0px;max-height: 480px;">');
+                                                            } else {
+                                                                echo ('<img src="png/' . $file_name . '.png" style="padding: 0px;margin: 0px;max-height: 480px;">');
+                                                            }
+                                                        } else if ($row['2'] == "txt") {
+                                                            echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
+                                                        } else if ($row['2'] == "url") {
+                                                            echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
                                                         } else {
-                                                            echo ('<img src="png/' . $file_name . '.png" style="padding: 0px;margin: 0px;max-height: 480px;">');
+                                                            echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">画像がありません</textarea>');
                                                         }
-                                                    } else if ($row['2'] == "txt") {
-                                                        echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
-                                                    } else if ($row['2'] == "url") {
-                                                        echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
+                                                        ?>
+                                                    </a>
+                                                </th>
+                                                <th>
+                                                    <textarea style="width:100%;height:22%;padding:0px;margin:0px;"><?= ($row['3']) ?></textarea><br>
+                                                    <textarea style="width:100%;height:22%;padding:0px;margin:0px;"><?= ($row['4']) ?></textarea>
+                                                </th>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </table>
+                                </div>
+                            <?php else : ?>
+                                <div class="wrap">
+                                    <?php foreach ($rows as $row) : ?>
+                                        <?php ++$count; ?>
+                                        <div class="<?php
+                                                    if (!empty($fullsc)) {
+                                                        echo ("fsc");
                                                     } else {
-                                                        echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">画像がありません</textarea>');
+                                                        echo ("cnt");
                                                     }
-                                                    ?>
-                                                </a>
-                                            </th>
-                                            <th>
-                                                <textarea style="width:100%;height:22%;padding:0px;margin:0px;"><?= ($row['3']) ?></textarea><br>
-                                                <textarea style="width:100%;height:22%;padding:0px;margin:0px;"><?= ($row['4']) ?></textarea>
-                                            </th>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </table>
-                            </div>
-                        <?php else : ?>
-                            <div class="wrap">
-                                <?php foreach ($rows as $row) : ?>
-                                    <?php ++$count; ?>
-                                    <div class="<?php
-                                                if (!empty($fullsc)) {
-                                                    echo ("fsc");
-                                                } else {
-                                                    echo ("cnt");
+                                                    ?>">
+                                            <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>" target="_blank">
+                                                <?php
+                                                $file_name = sprintf('%014d', $row['0']);
+                                                if (file_exists('webp/' . $file_name . '.webp')) {
+                                                    if ($_COOKIE['size'] == "1" && !empty($fullsc)) {
+                                                        echo ('<img src="webp/' . $file_name . '.webp" style="max-height: 338px;max-width: 600px">');
+                                                    } elseif (empty($fullsc)) {
+                                                        echo ('<img src="webp/' . $file_name . '.webp"style="padding:0px;margin:0px;width:100%;height:56%;">');
+                                                    } elseif (!empty($fullsc)) {
+                                                        echo ('<img src="png/' . $file_name . '.png" style="max-height: 338px;max-width: 600px">');
+                                                    }
+                                                } else if ($row['2'] == "txt" && empty($fullsc)) {
+                                                    echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
+                                                } else if ($row['2'] == "url" && empty($fullsc)) {
+                                                    echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
+                                                } else if (empty($fullsc)) {
+                                                    echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">画像がありません</textarea>');
                                                 }
-                                                ?>">
-                                        <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>" target="_blank">
+                                                ?>
+                                            </a>
                                             <?php
-                                            $file_name = sprintf('%014d', $row['0']);
-                                            if (file_exists('webp/' . $file_name . '.webp')) {
-                                                if ($_COOKIE['size'] == "1" && !empty($fullsc)) {
-                                                    echo ('<img src="webp/' . $file_name . '.webp" style="max-height: 338px;max-width: 600px">');
-                                                } elseif (empty($fullsc)) {
-                                                    echo ('<img src="webp/' . $file_name . '.webp"style="padding:0px;margin:0px;width:100%;height:56%;">');
-                                                } elseif (!empty($fullsc)) {
-                                                    echo ('<img src="png/' . $file_name . '.png" style="max-height: 338px;max-width: 600px">');
-                                                }
-                                            } else if ($row['2'] == "txt" && empty($fullsc)) {
-                                                echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
-                                            } else if ($row['2'] == "url" && empty($fullsc)) {
-                                                echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">' . $row['5'] . '</textarea>');
-                                            } else if (empty($fullsc)) {
-                                                echo ('<textarea style="padding:0px;margin:0px;width:100%;height:46%;">画像がありません</textarea>');
+                                            if (empty($fullsc)) {
+                                                echo ('<textarea style="width:100%;height:21%;padding:0px;margin:0px;">' . $row['3'] . '</textarea><br>');
+                                                echo ('<textarea style="width:100%;height:21%;padding:0px;margin:0px;">' . $row['4'] . '</textarea>');
                                             }
                                             ?>
-                                        </a>
-                                        <?php
-                                        if (empty($fullsc)) {
-                                            echo ('<textarea style="width:100%;height:21%;padding:0px;margin:0px;">' . $row['3'] . '</textarea><br>');
-                                            echo ('<textarea style="width:100%;height:21%;padding:0px;margin:0px;">' . $row['4'] . '</textarea>');
-                                        }
-                                        ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <p>
+                                データベースには<?= ($name0) ?>のデータが見つかりませんでした。<br>
+                                データが登録されていないか、サーバーにエラーが起きています。<br>
+                            </p>
                         <?php endif; ?>
-                    <?php else : ?>
-                        <p>
-                            データベースには<?= ($name0) ?>のデータが見つかりませんでした。<br>
-                            データが登録されていないか、サーバーにエラーが起きています。<br>
-                        </p>
-                    <?php endif; ?>
-                    <a href="content.php?page=<?= ($page - 1) ?>&search=<?= ($_GET['search']) ?>">前ページ</a><?= ($page) ?><a href="content.php?page=<?= ($page + 1) ?>&search=<?= ($_GET['search']) ?>">次のページ</a>
-                </section>
+                        <a href="content.php?page=<?= ($page - 1) ?>&search=<?= ($_GET['search']) ?>">前ページ</a><?= ($page) ?><a href="content.php?page=<?= ($page + 1) ?>&search=<?= ($_GET['search']) ?>">次のページ</a>
+                </div>
+
+                <div class="box">
+                    <form action="cookie.php" method="get">
+                        検索<input type="text" name="search" value="<?= ($_GET['search']) ?>"><br>
+                        ※全角スペースで区切ってください。<br>
+                        <input type="radio" name="type" value="all" checked="checked">すべて
+                        <input type="radio" name="type" value="vrc">VRC写真
+                        <input type="radio" name="type" value="txt">メモ
+                        <input type="radio" name="type" value="fil">ファイル
+                        <input type="radio" name="type" value="img">画像
+                        <input type="radio" name="type" value="mov">動画
+                        <input type="radio" name="type" value="tod">予定<br>
+                        <input type="radio" name="r" value="0" checked="checked">制限
+                        <input type="radio" name="r" value="1">解除<br>
+                        <input type="radio" name="num" value="0" checked="checked">50
+                        <input type="radio" name="num" value="1">100
+                        <input type="radio" name="num" value="2">200
+                        <input type="radio" name="num" value="3">500
+                        <input type="radio" name="num" value="4">1000<br>
+                        <input type="radio" name="size" value="0">高画質
+                        <input type="radio" name="size" value="1">低画質<br>
+                        <button type="submit">検索</button><br>
+                    </form>
+                    </section>
+                </div>
             </div>
         </div>
         <!--フッター-->

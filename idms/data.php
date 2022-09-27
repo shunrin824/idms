@@ -44,19 +44,6 @@ foreach ($datas as $data) {
 <html>
 
 <head>
-    <style>
-        .box {
-            padding: 0.5em 1em;
-            margin: 2em 0;
-            border: dashed 2px #5b8bd0;
-            /*点線*/
-        }
-
-        .box p {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <script>
         function ShowLength(str) {
             document.getElementById("inputlength").innerHTML = str.length + "文字";
@@ -81,22 +68,15 @@ foreach ($datas as $data) {
         </header>
         <div class="container">
             <div class="main">
-                <section>
-                    <?php foreach ($rows as $row) : ?>
-                        [ID<?= ($row[0]) ?>]<br>
-                        [<?= ($row[4]) ?>]<br>
-                        [日時<?php echo (substr($row[1], '0', '4') . "年" . substr($row[1], '4', '2') . "月" . substr($row[1], '6', '2') . "日" . substr($row[1], '8', '2') . "時" . substr($row[1], '10', '2') . "分" . substr($row[1], '12', '2') . "秒"); ?>]<br>
-                        <?php
-                        if (isset($_COOKIE['size'])) {
-                            if(($_COOKIE['size'] == "1")){
-                                if ($row['2'] == "img" || $row['2'] == "vrc") {
-                                    echo ('<img src="webp/' . $row['0'] . '.webp" class="viewmedia">');
-                                } elseif ($row['2'] == "snd") {
-                                    echo ('<audio controls src="ssound/' . $row['0'] . '.ogg"></audio>');
-                                } elseif ($row['2'] == "mov") {
-                                    echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
-                                }
-                            }else{
+                <div class="box">
+                    <section>
+                        <?php foreach ($rows as $row) : ?>
+                            [ID<?= ($row[0]) ?>]<br>
+                            [<?= ($row[4]) ?>]<br>
+                            [日時<?php echo (substr($row[1], '0', '4') . "年" . substr($row[1], '4', '2') . "月" . substr($row[1], '6', '2') . "日" . substr($row[1], '8', '2') . "時" . substr($row[1], '10', '2') . "分" . substr($row[1], '12', '2') . "秒"); ?>]<br>
+                            <?php
+                            if (!isset($_COOKIE['size'])) {
+
                                 if ($row['2'] == "img" || $row['2'] == "vrc") {
                                     echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
                                 } elseif ($row['2'] == "snd") {
@@ -104,45 +84,55 @@ foreach ($datas as $data) {
                                 } elseif ($row['2'] == "mov") {
                                     echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
                                 }
+                            } elseif ($_GET['origin'] == "1") {
+                                if ($row['2'] == "img" || $row['2'] == "vrc") {
+                                    echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
+                                } elseif ($row['2'] == "snd") {
+                                    echo ('<audio controls src="sound/' . $row['0'] . '.m4a"></audio>');
+                                } elseif ($row['2'] == "mov") {
+                                    echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                }
+                            } else {
+                                if (($_COOKIE['size'] == "1")) {
+                                    if ($row['2'] == "img" || $row['2'] == "vrc") {
+                                        echo ('<img src="webp/' . $row['0'] . '.webp" class="viewmedia">');
+                                    } elseif ($row['2'] == "snd") {
+                                        echo ('<audio controls src="ssound/' . $row['0'] . '.ogg"></audio>');
+                                    } elseif ($row['2'] == "mov") {
+                                        echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                    }
+                                } else {
+                                    if ($row['2'] == "img" || $row['2'] == "vrc") {
+                                        echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
+                                    } elseif ($row['2'] == "snd") {
+                                        echo ('<audio controls src="sound/' . $row['0'] . '.m4a"></audio>');
+                                    } elseif ($row['2'] == "mov") {
+                                        echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                    }
+                                }
                             }
-                        } else {
-                            if ($row['2'] == "img" || $row['2'] == "vrc") {
-                                echo ('<img src="png/' . $row['0'] . '.png" class="viewmedia">');
-                            } elseif ($row['2'] == "snd") {
-                                echo ('<audio controls src="sound/' . $row['0'] . '.m4a"></audio>');
-                            } elseif ($row['2'] == "mov") {
-                                echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
-                            }
-                        }
-                        ?>
-                        <form action="csv.php" method="post">
-                            <input type="text" name="tag" style="min-width:20%;" id="tag" value="" onkeyup="ShowLength(value);"></input><br>
-                            <script type="text/javascript">
-                                document.getElementById('tag').focus();
-                            </script><br>
-                            <?php
-                            foreach ($row['3'] as $tags) {
-                                echo ('&lt;<a href="csv.php?tag=' . $tags . '&id=' . $row[0] . '&mode=tagrm">[X]</a><a href="content.php?search=' . $tags . '">' . $tags . '</a>&gt;&nbsp;<br>');
-                            }
-                            ?><br>
-                            <a href="png/<?= ($row[0]) ?>.png" download="<?= ($row[0]) ?>.png">画像をダウンロードする</a><br>
-                            <a href="rawmovie/<?= ($row[0]) ?>.mp4" download="<?= ($row[0]) ?>.mp4">動画をダウンロードする</a><br>
-                            <a href="file/<?= ($row[0]) ?>.zip" download="<?= ($row[0]) ?>.zip">アーカイブをダウンロードする</a><br>
-                            [文字数<p id="inputlength" style="display:inline-flex">-文字</p>]
-                            <textarea name="memo" rows="20" style="width: 100%;" onkeyup="ShowLength(value);"><?= ($row[5]) ?></textarea><br>
-                            <button type="submit" name="id" value="<?= ($row[0]) ?>">登録</button>
-                        </form>
-                        <form action="del.php" method="get" style="display:inline-flex">
-                            <button type="submit" name="id" value="<?= ($row[0]) ?>">削除</button>
-                        </form>
-                        <form action="output.php" method="get" style="display:inline-flex">
-                            <button type="submit" name="id" value="<?= ($row[0]) ?>">ダウンロード</button>
-                        </form>
-                        <form action="preview.php" method="get" style="display:inline-flex">
-                            <button type="submit" name="id" value="<?= ($row[0]) ?>">プレビュー</button>
-                        </form>
-                    <?php endforeach; ?>
-                </section>
+                            ?>
+                            <form action="csv.php" method="post">
+                                <input type="text" name="tag" style="min-width:20%;" id="tag" value="" onkeyup="ShowLength(value);"></input><br>
+                                <script type="text/javascript">
+                                    document.getElementById('tag').focus();
+                                </script><br>
+                                <?php
+                                foreach ($row['3'] as $tags) {
+                                    echo ('&lt;<a href="csv.php?tag=' . $tags . '&id=' . $row[0] . '&mode=tagrm">[X]</a><a href="content.php?search=' . $tags . '">' . $tags . '</a>&gt;&nbsp;<br>');
+                                }
+                                ?><br>
+                                <a href="data.php?id=<?= ($row[0]) ?>&origin=1">元画質の閲覧</a><br>
+                                <a href="png/<?= ($row[0]) ?>.png" download="<?= ($row[0]) ?>.png">画像をダウンロードする</a><br>
+                                <a href="rawmovie/<?= ($row[0]) ?>.mp4" download="<?= ($row[0]) ?>.mp4">動画をダウンロードする</a><br>
+                                <a href="file/<?= ($row[0]) ?>.zip" download="<?= ($row[0]) ?>.zip">アーカイブをダウンロードする</a><br>
+                                [文字数<p id="inputlength" style="display:inline-flex">-文字</p>]
+                                <textarea name="memo" rows="20" style="width: 100%;" onkeyup="ShowLength(value);"><?= ($row[5]) ?></textarea><br>
+                                <button type="submit" name="id" value="<?= ($row[0]) ?>">登録</button>
+                            </form>
+                        <?php endforeach; ?>
+                    </section>
+                </div>
             </div>
             <div class="side">
                 <?= htmlspecialchars_decode($html) ?>

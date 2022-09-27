@@ -2,12 +2,6 @@
 <html>
 
 <head>
-    <style>
-        .box {
-            border: 2px solid #400000;
-            /*点線*/
-        }
-    </style>
     <meta charset="UTF-8">
     <title>
         データベース（登録用ページ）
@@ -86,7 +80,6 @@
         <!--ここから本文-->
         <div class="container">
             <div class="main">
-                <h2><a href="/db/">データベースホームに戻る</a></h2>
                 <?php echo $filename; ?>
                 <div class="box">
                     <p>
@@ -102,11 +95,10 @@
                                 <input type="radio" name="type" value="fil">ファイル</input>
                                 <input type="radio" name="type" value="tod">予定</input>
                                 <img class="preview" src="noimage.jpg" alt="Preview">
-                                タグ<br>
-                                <textarea name="tag" rows="10" style="max-width:100%;width:500px"></textarea><br>
-                                URL<br>
+                                タグ
+                                <input type="text" name="tag" style="min-width:20%;" value=""></input><br>
+                                URL
                                 <input type="text" name="url" value=""></input><br>
-                                メモ<br>
                                 [文字数<p id="inputlength" style="display:inline-flex">-文字</p>]<br>
                                 <textarea name="memo" rows="10" style="max-width:100%;width:500px" onkeyup="ShowLength(value);"></textarea><br>
                             </form>
@@ -136,9 +128,6 @@
                         <input type="radio" name="size" value="0">高画質
                         <input type="radio" name="size" value="1">低画質<br>
                         <button type="submit">検索</button><br>
-                        <a href="content.php">イラスト一覧</a><br>
-                        <a href="foretaste_r.php">イラスト一覧()</a><br>
-                        <img id="preview">
                     </form>
                 </div>
             </div>
