@@ -61,5 +61,8 @@ if(isset($_GET['size'])){
 		setcookie("size", $_GET['size'], time()+2592000);
 	}
 }
-?>
-<html></meta><meta http-equiv="refresh" content="0; URL='/idms/content.php<?=($get)?>'"></meta></html>
+if(isset($get)){
+    echo('<html></meta><meta http-equiv="refresh" content="0; URL=/idms/content.php'.$get.'"></meta></html>');
+}else{
+    echo('<html></meta><meta http-equiv="refresh" content="0; URL=/idms/content.php"></meta></html>');
+}

@@ -1,7 +1,9 @@
 ﻿<?php
+ini_set("memory_limit", "4096M");
 //ini_set('display_errors', "on");
 $s = microtime(true); //処理にかかった時間。
-$config = json_decode(mb_convert_encoding(file_get_contents('config.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
+//$config = json_decode(mb_convert_encoding(file_get_contents('config.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true');
+$config = json_decode(file_get_contents('config.json'), 'true');
 $folder_png = "/var/www/html/idms/png";
 function h($str)
 { //テキストデータの処理を関数にしたもの。
@@ -65,7 +67,8 @@ while (file_exists('access')) { //データの排他制御のためにロック�
 }
 $rt1 = microtime(true); //メタデータの読み込みにかかった時間を計測するため、処理開始時間を取得。
 file_put_contents('access', 'reading'); //ロックファイルを作成。
-$datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true'); //JSONファイルを読み込み。
+//$datas = json_decode(mb_convert_encoding(file_get_contents('data.json'), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN'), 'true'); //JSONファイルを読み込み。
+$datas = json_decode(file_get_contents('data.json'), 'true'); //JSONファイルを読み込み。
 unlink('access'); //ロックファイルを削除
 $rt2 = microtime(true); //メタデータの読み込みにかかった時間を計測するため、処理終了時間を取得。
 $nod = '0'; //ディスプレイ表示件数に関する設定。
@@ -290,7 +293,7 @@ $s2 = microtime(true);
                         <input type="radio" name="num" value="1">100
                         <input type="radio" name="num" value="2">200
                         <input type="radio" name="num" value="3">500
-                        <input type="radio" name="num" value="4">1000<br>
+                        <input type="radio" name="num" value="4">10000<br>
                         <input type="radio" name="size" value="0">高画質
                         <input type="radio" name="size" value="1">低画質<br>
                         <button type="submit">検索</button><br>

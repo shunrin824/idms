@@ -124,7 +124,7 @@
                         <input type="radio" name="num" value="1">100
                         <input type="radio" name="num" value="2">200
                         <input type="radio" name="num" value="3">500
-                        <input type="radio" name="num" value="4">1000<br>
+                        <input type="radio" name="num" value="4">10000<br>
                         <input type="radio" name="size" value="0">高画質
                         <input type="radio" name="size" value="1">低画質<br>
                         <button type="submit">検索</button><br>
