@@ -13,7 +13,7 @@ function png_convert($path, $ext, $id, $type)
             $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
         } elseif ($type == 'img') {
             echo ($id."_img\n");
-            $baseImage = imagecreatefromjpeg('/var/www/html/idms/png/' . $id . '.png');
+            $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
         }
         list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $id . '.png'); // 元の画像名を指定してサイズを取得
         $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
@@ -22,12 +22,6 @@ function png_convert($path, $ext, $id, $type)
         unset($baseImage);
         unset($image);
     }
-}
-if (!file_exists('png')) {
-    mkdir('png');
-}
-if (!file_exists('webp')) {
-    mkdir('webp');
 }
 $backuppath = '/var/www/html/idms/';
 if ('a' == 'b') {
