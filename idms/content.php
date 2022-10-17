@@ -199,7 +199,14 @@ $s2 = microtime(true);
                                             <tr>
                                                 <?php ++$count; ?>
                                                 <th>
-                                                    <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>&local=<?= ($_GET['local']) ?>" target="_blank">
+                                                    <?php if (strpos($row['3'], 'favorite')): ?>
+                                                        <a href="csv.php?tag=favorite&id=<?=$row['0']?>&mode=tagrm" target="csv">除外</a>
+                                                    <?php else: ?>
+                                                        <a href="csv.php?tag=favorite&id=<?=$row['0']?>&mode=tagadd" target="csv">追加</a>
+                                                    <?php endif; ?>
+                                                </th>
+                                                <th>
+                                                    <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>&local=<?= ($_GET['local']) ?>">
                                                         <?php
                                                         $file_name = sprintf('%014d', $row['0']);
                                                         if (file_exists('webp/' . $file_name . '.webp')) {
@@ -225,6 +232,7 @@ $s2 = microtime(true);
                                             </tr>
                                         <?php endforeach; ?>
                                     </table>
+                                    <div><iframe src="" width="1px" height="1px" name="csv">処理用です</iframe></div>
                                 </div>
                             <?php else : ?>
                                 <div class="wrap">

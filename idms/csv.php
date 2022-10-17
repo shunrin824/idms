@@ -37,11 +37,21 @@ foreach ($datas as $data) {
             unset($data);
             unset($tag);
             unset($memo);
+        } else if ($_GET['mode'] == "tagadd") {
+            if ($data['id'] == $_GET['id']) {
+                $data['tag'][] = $_GET['tag'];
+                $edata[] = $data;
+            } else {
+                $edata[] = $data;
+            }
+            unset($data);
+            unset($tag);
+            unset($memo);
         } else {
             if ($data['id'] == $id) {
                 if (isset($_POST['tag'])) {
                     $tags = explode('、', $_POST['tag']);
-                    if(!is_array($data['tag'])){
+                    if (!is_array($data['tag'])) {
                         $tags[] = $data['tag'];
                         unset($data['tag']);
                     }
