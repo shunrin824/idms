@@ -92,6 +92,8 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
                             $nm = "1";
                         }
                     }
+                }else{
+                    $nm = "1";
                 }
             }
         }
