@@ -37,6 +37,7 @@ if ($ext == 'gif' || $ext == 'GIF' || $ext == 'jpg' || $ext == 'JPG' || $ext4 ==
     }
     $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
     imagecopyresampled($image,$baseImage,0,0,0,0,$width,$hight,$width,$hight); // 画像のコピーと伸縮
+    imagewebp($image, 'l_webp/' . $id . '.webp', 100);
     imagepng($image,"png/".$id.".png"); // コピーした画像を出力する
 // WEBP低品質画像に変換
     list($width, $hight, $type) = getimagesize($filePath); // 元の画像名を指定してサイズを取得

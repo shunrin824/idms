@@ -8,22 +8,16 @@ function h($str)
 function png_convert($path, $ext, $id, $type)
 {
     if (file_exists('/var/www/html/idms/png/' . $id . '.png')) {
-        if ($type == 'vrc') {
-            echo ($id . "_vrc\n");
-            $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
-        } elseif ($type == 'img') {
-            echo ($id . "_img\n");
-            $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
-        }
+        $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
         list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $id . '.png'); // 元の画像名を指定してサイズを取得
         $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
         imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight); // 画像のコピーと伸縮
-        //imageavif($image, '/var/www/html/idms/avif/' . $id . '.avif', 100, 0); // コピーした画像を出力する
+        imagewebp($image, '/var/www/html/idms/l_webp/' . $id . '.webp', 100); // コピーした画像を出力する
         unset($baseImage);
         unset($image);
     }
 }
-if (false) {
+if (true) {
     $backuppath = '/var/www/html/idms/';
     $jDatas = file_get_contents($backuppath . 'data.json', false);
     $jDatas = json_decode($jDatas, 'true');
@@ -37,7 +31,7 @@ if (false) {
 }
 
 
-if (true) {
+if (false) {
     $baseImage = imagecreatefrompng('/var/www/html/idms/png/00000000055128.png');
     list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/00000000055128.png'); // 元の画像名を指定してサイズを取得
     $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
