@@ -94,7 +94,7 @@ foreach ($datas as $data) {
                                 }
                             }elseif ($_GET['origin'] == "2"){
                                 if ($row['2'] == "img" || $row['2'] == "vrc") {
-                                    echo ('<img src="l_webp/' . $row['0'] . '.png" class="viewmedia">');
+                                    echo ('<img src="l_webp/' . $row['0'] . '.webp" class="viewmedia">');
                                 } elseif ($row['2'] == "snd") {
                                     echo ('<audio controls src="sound/' . $row['0'] . '.m4a"></audio>');
                                 } elseif ($row['2'] == "mov") {
