@@ -4,7 +4,8 @@ function h($str)
 {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
-
+$st = microtime(true);
+$i = 0;
 function png_convert($path, $ext, $id, $type)
 {
     if (file_exists('/var/www/html/idms/png/' . $id . '.png')) {
@@ -15,6 +16,7 @@ function png_convert($path, $ext, $id, $type)
         imagewebp($image, '/var/www/html/idms/l_webp/' . $id . '.webp', 100); // コピーした画像を出力する
         unset($baseImage);
         unset($image);
+        
     }
 }
 if (true) {
@@ -23,10 +25,19 @@ if (true) {
     $jDatas = json_decode($jDatas, 'true');
     foreach ($jDatas as $jData) {
         if ($jData['type'] == 'vrc') {
+            $st1 = microtime(true);
             png_convert($backuppath, "png", $jData['id'], "vrc");
+            list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $jData['id'] . '.png');
+            $et1 = microtime(true);
+            echo($jData['id']."__".$et1 - $st1."__".$width."x".$hight."\n");
         } elseif ($jData['type'] == 'img') {
+            $st1 = microtime(true);
             png_convert($backuppath, "png", $jData['id'], "img");
+            list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $jData['id'] . '.png');
+            $et1 = microtime(true);
+            echo($jData['id']."__".$et1 - $st1."__".$width."x".$hight."\n");
         }
+        $i++;
     }
 }
 
@@ -40,3 +51,5 @@ if (false) {
     imagepng($image, '/var/www/html/idms/test.avif', 100, 0); // コピーした画像を出力する
     imagewebp($image, '/var/www/html/idms/test.avif', 100, 0); // コピーした画像を出力する
 }
+$et = microtime(true);
+echo (($et - $st) / $i);
