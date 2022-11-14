@@ -30,9 +30,17 @@ foreach ($datas as $data) {
                         list($width, $hight, $type) = getimagesize($idms_path.'png/' . $id . '.png'); // 元の画像名を指定してサイズを取得
                         $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
                         imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight); // 画像のコピーと伸縮
-                        imagewebp($image, $idms_path.'l_webp/' . $id . '.webp', 100); // コピーした画像を出力する
+                        imagewebp($image, $html_path.'l_webp/' . $id . '.webp', 100); // コピーした画像を出力する
+                        imagewebp($image, $html_path.'l_png/' . $id . '.png', 9); // コピーした画像を出力する
                         unset($baseImage);
                         unset($image);
+                        if($width < $height){
+                            $s_width = round(360 * $width / $hight);
+                        }
+                        $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
+                        imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight); // 画像のコピーと伸縮
+                        imagewebp($image, $html_path.'l_webp/' . $id . '.webp', 100); // コピーした画像を出力する
+                        imagewebp($image, $html_path.'l_png/' . $id . '.png', 9); // コピーした画像を出力する
                     }
                 }
             }
