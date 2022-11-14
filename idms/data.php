@@ -92,6 +92,14 @@ foreach ($datas as $data) {
                                 } elseif ($row['2'] == "mov") {
                                     echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
                                 }
+                            }elseif ($_GET['origin'] == "2"){
+                                if ($row['2'] == "img" || $row['2'] == "vrc") {
+                                    echo ('<img src="l_webp/' . $row['0'] . '.png" class="viewmedia">');
+                                } elseif ($row['2'] == "snd") {
+                                    echo ('<audio controls src="sound/' . $row['0'] . '.m4a"></audio>');
+                                } elseif ($row['2'] == "mov") {
+                                    echo ('<video controls src="rawmovie/' . $row['0'] . '.mp4" class="viewmedia"></video>');
+                                }
                             } else {
                                 if (($_COOKIE['size'] == "1")) {
                                     if ($row['2'] == "img" || $row['2'] == "vrc") {
@@ -122,7 +130,8 @@ foreach ($datas as $data) {
                                     echo ('&lt;<a href="csv.php?tag=' . $tags . '&id=' . $row['0'] . '&mode=tagrm">[X]</a><a href="content.php?search=' . $tags . '">' . $tags . '</a>&gt;&nbsp;<br>');
                                 }
                                 ?><br>
-                                <a href="data.php?id=<?= ($row['0']) ?>&origin=1">元画質の閲覧</a><br>
+                                <a href="data.php?id=<?= ($row['0']) ?>&origin=1">オリジナル画像の閲覧</a><br>
+                                <a href="data.php?id=<?= ($row['0']) ?>&origin=2">高画質画像の閲覧</a><br>
                                 <a href="png/<?= ($row['0']) ?>.png" download="<?= ($row['0']) ?>.png">画像をダウンロードする</a><br>
                                 <a href="rawmovie/<?= ($row['0']) ?>.mp4" download="<?= ($row['0']) ?>.mp4">動画をダウンロードする</a><br>
                                 <a href="file/<?= ($row['0']) ?>.zip" download="<?= ($row['0']) ?>.zip">アーカイブをダウンロードする</a><br>
