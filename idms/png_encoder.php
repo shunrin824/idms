@@ -16,7 +16,6 @@ function png_convert($path, $ext, $id, $type)
         imagewebp($image, '/var/www/html/idms/l_webp/' . $id . '.webp', 100); // コピーした画像を出力する
         unset($baseImage);
         unset($image);
-        
     }
 }
 if (true) {
@@ -25,17 +24,21 @@ if (true) {
     $jDatas = json_decode($jDatas, 'true');
     foreach ($jDatas as $jData) {
         if ($jData['type'] == 'vrc') {
-            $st1 = microtime(true);
-            png_convert($backuppath, "png", $jData['id'], "vrc");
-            list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $jData['id'] . '.png');
-            $et1 = microtime(true);
-            echo($jData['id']."__".$et1 - $st1."__".$width."x".$hight."\n");
+            if (file_exists('/var/www/html/idms/png/' . $jData['id'] . '.png')) {
+                $st1 = microtime(true);
+                png_convert($backuppath, "png", $jData['id'], "vrc");
+                list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $jData['id'] . '.png');
+                $et1 = microtime(true);
+                echo ($jData['id'] . "__" . $et1 - $st1 . "__" . $width . "x" . $hight . "\n");
+            }
         } elseif ($jData['type'] == 'img') {
-            $st1 = microtime(true);
-            png_convert($backuppath, "png", $jData['id'], "img");
-            list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $jData['id'] . '.png');
-            $et1 = microtime(true);
-            echo($jData['id']."__".$et1 - $st1."__".$width."x".$hight."\n");
+            if (file_exists('/var/www/html/idms/png/' . $jData['id'] . '.png')) {
+                $st1 = microtime(true);
+                png_convert($backuppath, "png", $jData['id'], "img");
+                list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $jData['id'] . '.png');
+                $et1 = microtime(true);
+                echo ($jData['id'] . "__" . $et1 - $st1 . "__" . $width . "x" . $hight . "\n");
+            }
         }
         $i++;
     }
