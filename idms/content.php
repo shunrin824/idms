@@ -95,6 +95,7 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
                 }else{
                     $nm = "1";
                 }
+                unset($qs);
             }
         }
     }
@@ -106,6 +107,7 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
                 }
             }
         }
+        unset($hideword);
     }
     if (!isset($nm)) { //条件に合致した場合、カウント
         $nod++;
@@ -136,6 +138,7 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
     } else {
         goto end;
     }
+    unset($data);
 }
 end:
 $count = "0";

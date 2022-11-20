@@ -9,7 +9,20 @@ $i = 0;
 function png_convert($path, $ext, $id, $type)
 {
     if (file_exists('/var/www/html/idms/png/' . $id . '.png')) {
-        $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
+        switch(mime_content_type('/var/www/html/idms/png/' . $id . '.png')){
+            case 'image/png':
+                $baseImage = imagecreatefrompng('/var/www/html/idms/png/' . $id . '.png');
+                break;
+
+            case 'image/jpeg':
+                $baseImage = imagecreatefromjpeg('/var/www/html/idms/png/' . $id . '.png');
+                break;
+
+            case 'image/webp':
+                $baseImage = imagecreatefromwebp('/var/www/html/idms/png/' . $id . '.png');
+                break;
+                
+        }
         list($width, $hight, $type) = getimagesize('/var/www/html/idms/png/' . $id . '.png'); // 元の画像名を指定してサイズを取得
         $image = imagecreatetruecolor($width, $hight); // サイズを指定して新しい画像のキャンバスを作成
         imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight); // 画像のコピーと伸縮

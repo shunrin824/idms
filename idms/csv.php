@@ -76,7 +76,11 @@ foreach ($datas as $data) {
                     if (is_array($data['tag'])) {
                         $data['tag'][] = $tag;
                     } else {
-                        $data['tag'] = $tag;
+                        if (isset($data['tag'])) {
+                            $temp_tag = $data['tag'];
+                            $data['tag'][] = $temp_tag;
+                        }
+                        $data['tag'][] = $tag;
                     }
                 }
             }
@@ -89,6 +93,7 @@ foreach ($datas as $data) {
         unset($tag);
         unset($memo);
     }
+    unset($data);
 }
 $s1 = microtime(true);
 $json = json_encode($edata, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
