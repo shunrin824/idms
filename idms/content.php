@@ -139,6 +139,7 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
         goto end;
     }
     unset($data);
+    unset($row);
 }
 end:
 $count = "0";
@@ -235,6 +236,7 @@ $s2 = microtime(true);
                                                     <textarea style="width:100%;height:22%;padding:0px;margin:0px;"><?= ($row['4']) ?></textarea>
                                                 </th>
                                             </tr>
+                                            <?php unset($row)?>
                                         <?php endforeach; ?>
                                     </table>
                                     <div><iframe src="" width="1px" height="1px" name="csv">処理用です</iframe></div>
@@ -277,6 +279,7 @@ $s2 = microtime(true);
                                             }
                                             ?>
                                         </div>
+                                        <?php unset($row)?>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
