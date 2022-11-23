@@ -36,8 +36,8 @@ if (!file_exists($html_path)) {
 if (!file_exists($html_path . "webp/")) {
     mkdir($html_path . "webp/");
 }
-if (!file_exists($html_path . "webp/")) {
-    mkdir($html_path . "webp/");
+if (!file_exists($html_path . "jpeg/")) {
+    mkdir($html_path . "jpeg/");
 }
 file_put_contents('access', 'writing');
 copy('back.svg',$html_path.'back.svg');
