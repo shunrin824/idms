@@ -1,0 +1,164 @@
+<html>
+
+<head>
+    <title>[title]</title>
+    <style>
+        .img {
+            width: 100%;
+            min-width: 360px;
+            max-width: 1080px;
+        }
+
+        video {
+            width: 100%;
+            min-width: 360px;
+            max-width: 1080px;
+        }
+
+        body {
+            word-wrap: break-word;
+            background-image: url(back.svg);
+            background-size: 100px;
+            background-repeat: repeat;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            border-right: solid 2px#400000;
+            border-left: solid 2px#400000;
+        }
+
+        header {
+            background: #f6E2E8;
+            max-width: 1400px;
+            color: #f6e2e8;
+        }
+
+        header a:visited {
+            color: #f6e2e8;
+        }
+
+        header a {
+            color: #f6e2e8;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .main {
+            width: 100%;
+            color: #400000;
+            background: #f6e2e8;
+        }
+
+        .article {
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .main a {
+            color: #400000;
+        }
+
+        .main a:visited {
+            color: #400000;
+        }
+
+        .side {
+            width: 300px;
+            background: #f6e2e8;
+            color: #400000;
+
+        }
+
+        footer {
+            background: #400000;
+            color: #f6e2e8;
+        }
+
+        @media (min-width:751px) {
+            .main {
+                border-right: solid 2px #400000;
+            }
+        }
+
+        @media (max-width: 750px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .main,
+            .side {
+                width: 100%;
+            }
+        }
+    </style>
+    <meta charset="utf-8">
+    <html lang="ja">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!--ここからヘッダー-->
+        <header>
+            <a href="/index.html" style="color: #f6e2e8;">
+                <picture style="width:100%;">
+                    <source type="image/webp" srcset="banner.webp">
+                    <source type="image/jpeg" srcset="banner.jpg">
+                    <img src="banner.jpg" type="image/jpeg" style="width:100%;">
+                </picture>
+            </a>
+        </header>
+        <!--ここから本文-->
+        <div class="container">
+            <div class="main">
+                <div class="article">
+                    <h1>[title]</h1>
+                    [article]
+                </div>
+            </div>
+            <!--ここからサイドメニュー-->
+            <div class="side">
+                <div class="article">
+                    <h2>最新の記事はこちら</h2>
+                    [last2_title]
+                </div>
+            </div>
+        </div>
+        <!--フッター-->
+        <footer>
+            HP管理者:しゅんりん<br>
+            <table>
+                <tr>
+                    <td>
+                        Twitter
+                    </td>
+                    <td>
+                        <a href="https://twitter.com/VRChat71811865">@VRChat71811865</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Youtube
+                    </td>
+                    <td>
+                        <a href="https://youtube.com/channel/UCCYwkWKwYpmnlBP4IS4l3DQ">しゅんりん</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Twitch
+                    </td>
+                    <td>
+                        <a href="https://.twitch.tv/shunrin824">shunrin824</a>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+    </div>
+</body>
+
+</html>
