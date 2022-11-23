@@ -6,7 +6,6 @@ $html_template = file_get_contents($html_template_path);
 ini_set('display_errors', "on");
 $idms_path = "/var/www/html/idms/";
 $html_path = "/var/www/html/article/";
-$link_path = "/article/";
 ini_set('display_errors', "on");
 $s = microtime(true);
 function h($str)
@@ -49,7 +48,7 @@ foreach ($datas as $data) {
     if (stristr(implode("", $data['tag']), 'public') && stristr(implode("", $data['tag']), 'article')) {
         if ($data['type'] == 'txt') {
             echo ($data['id']);
-            $article = preg_replace('/img([0-9]{14})/i', '<picture class="img"><source type="image/webp" srcset="' . $link_path . 'webp/$1.webp"><source type="image/jpeg" srcset="' . $link_path . 'jpeg/$1.jpg"><img src="' . $link_path . 'jpeg/$1.jpg" type="image/jpeg" class="img"></picture>', htmlspecialchars_decode($data['memo']));
+            $article = preg_replace('/img([0-9]{14})/i', '<picture class="img"><source type="image/webp" srcset="webp/$1.webp"><source type="image/jpeg" srcset="jpeg/$1.jpg"><img src="jpeg/$1.jpg" type="image/jpeg" class="img"></picture>', htmlspecialchars_decode($data['memo']));
             $html = str_replace('[article]', $article, $html_template);
             file_put_contents($html_path . $data['id'] . ".htm", $html);
         } elseif ($data['type'] == 'vrc' || $data['type'] == 'img') {
