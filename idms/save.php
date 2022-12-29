@@ -116,6 +116,10 @@ elseif($ext == 'zip' || $ext == 'ZIP'){
     $upload = 'file/'.$id.'.tar';
     move_uploaded_file($file['tmp_name'], $upload);
     $type = "fil";
+}elseif($ext == '.gz'){
+    $upload = 'file/'.$id.'.gz';
+    move_uploaded_file($file['tmp_name'], $upload);
+    $type = "fil";
 }
 
 // ファイルアップロードが無かった場合の処理
