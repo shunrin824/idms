@@ -92,7 +92,7 @@ foreach ($datas as $data) { //読み込んだデータの全件検索
                             $nm = "1";
                         }
                     }
-                }else{
+                } else {
                     $nm = "1";
                 }
                 unset($qs);
@@ -205,11 +205,14 @@ $s2 = microtime(true);
                                             <tr>
                                                 <?php ++$count; ?>
                                                 <th>
-                                                    <?php if (strpos($row['3'], 'favorite')): ?>
-                                                        <a href="csv.php?tag=favorite&id=<?=$row['0']?>&mode=tagrm" target="csv">除外</a>
-                                                    <?php else: ?>
-                                                        <a href="csv.php?tag=favorite&id=<?=$row['0']?>&mode=tagadd" target="csv">追加</a>
+                                                    <?php if (strpos($row['3'], 'favorite')) : ?>
+                                                        <a href="csv.php?tag=favorite&id=<?= $row['0'] ?>&mode=tagrm" target="csv">除外</a>
+                                                    <?php else : ?>
+                                                        <a href="csv.php?tag=favorite&id=<?= $row['0'] ?>&mode=tagadd" target="csv">追加</a>
                                                     <?php endif; ?>
+                                                    <a href="png/<?= ($row['0']) ?>.png" download="<?= ($row['0']) ?>.png">DL_origin</a><br>
+                                                    <a href="webp/<?= ($row['0']) ?>.webp" download="<?= ($row['0']) ?>.webp">DL_high</a><br>
+
                                                 </th>
                                                 <th>
                                                     <a href="data.php?id=<?= h(sprintf('%014d', $row['0'])) ?>&local=<?= ($_GET['local']) ?>">
@@ -236,7 +239,7 @@ $s2 = microtime(true);
                                                     <textarea style="width:100%;height:22%;padding:0px;margin:0px;"><?= ($row['4']) ?></textarea>
                                                 </th>
                                             </tr>
-                                            <?php unset($row)?>
+                                            <?php unset($row) ?>
                                         <?php endforeach; ?>
                                     </table>
                                     <div><iframe src="" width="1px" height="1px" name="csv">処理用です</iframe></div>
@@ -279,7 +282,7 @@ $s2 = microtime(true);
                                             }
                                             ?>
                                         </div>
-                                        <?php unset($row)?>
+                                        <?php unset($row) ?>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
