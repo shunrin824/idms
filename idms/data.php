@@ -133,7 +133,7 @@ foreach ($datas as $data) {
                                 <a href="data.php?id=<?= ($row['0']) ?>&origin=1">オリジナル画像の閲覧</a><br>
                                 <a href="data.php?id=<?= ($row['0']) ?>&origin=2">高画質画像の閲覧</a><br>
                                 <a href="png/<?= ($row['0']) ?>.png" download="<?= ($row['0']) ?>.png">画像をダウンロードする</a><br>
-                                <a href="webp/<?= ($row['0']) ?>.webp" download="<?= ($row['0']) ?>.webp">高画質画像をダウンロードする</a><br>
+                                <a href="l_webp/<?= ($row['0']) ?>.webp" download="<?= ($row['0']) ?>.webp">高画質画像をダウンロードする</a><br>
                                 <a href="rawmovie/<?= ($row['0']) ?>.mp4" download="<?= ($row['0']) ?>.mp4">動画をダウンロードする</a><br>
                                 <a href="file/<?= ($row['0']) ?>.zip" download="<?= ($row['0']) ?>.zip">アーカイブをダウンロードする</a><br>
                                 [文字数<p id="inputlength" style="display:inline-flex">-文字</p>]

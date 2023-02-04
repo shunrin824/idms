@@ -211,7 +211,7 @@ $s2 = microtime(true);
                                                         <a href="csv.php?tag=favorite&id=<?= $row['0'] ?>&mode=tagadd" target="csv">追加</a>
                                                     <?php endif; ?>
                                                     <a href="png/<?= ($row['0']) ?>.png" download="<?= ($row['0']) ?>.png">DL_origin</a><br>
-                                                    <a href="webp/<?= ($row['0']) ?>.webp" download="<?= ($row['0']) ?>.webp">DL_high</a><br>
+                                                    <a href="l_webp/<?= ($row['0']) ?>.webp" download="<?= ($row['0']) ?>.webp">DL_high</a><br>
 
                                                 </th>
                                                 <th>
