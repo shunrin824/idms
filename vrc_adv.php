@@ -3,9 +3,6 @@ function h($str)
 {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
-if(!$_GET['auth'] == '32165468795416549851'){
-    goto end;
-}
 
 ini_set('display_errors', "on");
 $date = date("YmdHis");
@@ -51,7 +48,6 @@ foreach ($datas as $data) {
 $json = json_encode($edata, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 $bytes = file_put_contents("idms/data.json", $json);
 unlink('idms/access');
-end:
 ?>
 <html>
 
